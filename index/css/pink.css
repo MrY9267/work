@@ -296,13 +296,13 @@ body {
   flex-wrap: wrap;
 }
 .my-bottom .row .about-left {
-  max-width: 80%;
+  max-width: 100%;
 }
 .my-bottom .row .about-left img {
   max-width: 100%;
 }
 .my-bottom .row .about-right {
-  max-width: 50%;
+  max-width: 100%;
   display: flex;
   align-content: center;
   justify-content: center;
