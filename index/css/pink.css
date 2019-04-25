@@ -1,9 +1,12 @@
 body {
+  max-width: 1170px;
+  margin: 0 auto;
+  margin-top: 90px;
   background: #f67590;
   box-sizing: border-box;
 }
 .my-nav {
-  max-width: 1140px;
+  max-width: 100%;
   padding-top: 30px;
   margin-left: auto;
   margin-right: auto;
@@ -84,9 +87,7 @@ body {
   transform: translateY(-7px) rotateZ(-50deg);
 }
 .my-head {
-  max-width: 1140px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 100%;
   background: #f66483;
 }
 .my-head .row {
@@ -98,35 +99,37 @@ body {
   flex-wrap: wrap;
   justify-content: center;
 }
-.my-head .row p {
+.my-head .row .head-text {
+  padding: 0 15px;
+}
+.my-head .row .head-text p {
   margin-bottom: 25px;
 }
-.my-head .row .btn {
+.my-head .row .head-text .btn {
   padding: 0 30px;
   line-height: 40px;
   border-radius: 40px;
   transition: all 0.3s;
   outline: none;
 }
-.my-head .row .btn i {
+.my-head .row .head-text .btn i {
   margin-left: 10px;
 }
-.my-head .row .btn:hover {
+.my-head .row .head-text .btn:hover {
   background: #f67590;
   color: white;
   border: 1px solid white;
 }
-.my-head .row h1 {
+.my-head .row .head-text h1 {
   color: white;
+  font-size: 36px;
 }
-.my-head .row p {
+.my-head .row .head-text p {
   color: white;
   font-size: 14px;
 }
 .my-area {
-  max-width: 1140px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 1170px;
   background: white;
 }
 .my-area .row {
@@ -150,8 +153,35 @@ body {
 .my-area .row .my-position:last-child.animate {
   transform: translateX(150px);
 }
-.my-area .row img {
+.my-area .row .my-img {
   float: left;
+  transform-style: preserve-3d;
+  position: relative;
+}
+.my-area .row .my-img img {
+  float: left;
+  transition: all 1s;
+}
+.my-area .row .my-img .introduce {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 135px;
+  height: 220px;
+  background: rgba(246, 100, 131, 0.7);
+  transform: rotateY(90deg);
+  color: white;
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  transition: all 1s;
+}
+.my-area .row .my-img:hover .introduce {
+  transform: rotateY(0deg);
+}
+.my-area .row .my-img:hover img {
+  transform: rotateY(-90deg);
 }
 .my-area .row .my-text {
   float: left;
@@ -175,18 +205,19 @@ body {
   color: #222222;
 }
 .my-mountain {
-  max-width: 1140px;
+  max-width: 1170px;
   margin-left: auto;
   margin-right: auto;
 }
-.my-mountain .container h2 {
+.my-mountain h2 {
   font-weight: 600;
 }
-.my-mountain .container .row {
+.my-mountain .row {
   max-width: 100%;
+  margin: 0;
 }
-.my-mountain .container .row .offer-left,
-.my-mountain .container .row .offer-right {
+.my-mountain .row .offer-left,
+.my-mountain .row .offer-right {
   max-width: 100%;
   min-height: 495px;
   display: flex;
@@ -194,19 +225,19 @@ body {
   align-content: flex-end;
   justify-content: center;
 }
-.my-mountain .container .row .offer-left .offer-end,
-.my-mountain .container .row .offer-right .offer-end {
+.my-mountain .row .offer-left .offer-end,
+.my-mountain .row .offer-right .offer-end {
   width: 510px;
   padding: 20px;
 }
-.my-mountain .container .row .offer-left .offer-end h2,
-.my-mountain .container .row .offer-right .offer-end h2 {
+.my-mountain .row .offer-left .offer-end h2,
+.my-mountain .row .offer-right .offer-end h2 {
   text-align: center;
   color: white;
   margin: 0;
 }
-.my-mountain .container .row .offer-left .offer-end p,
-.my-mountain .container .row .offer-right .offer-end p {
+.my-mountain .row .offer-left .offer-end p,
+.my-mountain .row .offer-right .offer-end p {
   text-align: center;
   max-width: 100%;
   color: white;
@@ -214,14 +245,16 @@ body {
   font-size: 14px;
   font-weight: 300;
 }
-.my-mountain .container .row .offer-left {
+.my-mountain .row .offer-left {
   background: url(../img/mountain1.jpg) no-repeat center center;
+  background-size: cover;
 }
-.my-mountain .container .row .offer-right {
+.my-mountain .row .offer-right {
   background: url(../img/mountain2.jpg) no-repeat center center;
+  background-size: cover;
 }
 .my-child {
-  max-width: 1140px;
+  max-width: 1170px;
   margin-left: auto;
   margin-right: auto;
   background: white;
@@ -261,7 +294,7 @@ body {
   transform: translateY(150px);
 }
 .my-massage {
-  max-width: 1140px;
+  max-width: 1170px;
   margin-left: auto;
   margin-right: auto;
   padding: 100px 0;
@@ -285,7 +318,7 @@ body {
   margin-bottom: 20px;
 }
 .my-bottom {
-  max-width: 1140px;
+  max-width: 1170px;
   margin-left: auto;
   margin-right: auto;
   background: white;
@@ -319,4 +352,68 @@ body {
 }
 .my-bottom .row .about-right .single-about p {
   color: #777777;
+}
+.my-search {
+  padding: 60px 0;
+}
+.my-search .bottom {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: white;
+}
+.my-search .bottom h3 {
+  width: 100%;
+  font-weight: 600;
+}
+.my-search .bottom p {
+  width: 100%;
+}
+.my-search .bottom .search {
+  width: 60%;
+  height: 40px;
+  border-radius: 30px;
+  margin-top: 30px;
+  background: white;
+  padding: 5px;
+}
+.my-search .bottom .search input {
+  height: 40px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+.my-search .bottom .search .btn {
+  width: 25%;
+  background: #f67590;
+  border-radius: 25px;
+  color: white;
+}
+.my-footer {
+  width: 90%;
+  background: url(../img/f-bg.jpg) no-repeat center center;
+  padding: 60px 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 90px;
+  text-align: center;
+  color: white;
+  font-size: 14px;
+}
+.my-footer .footer-content a {
+  color: #222222;
+  text-decoration: none;
+  font-size: 12px;
+}
+.my-footer .footer-icon {
+  margin-top: 30px;
+}
+.my-footer .footer-icon a {
+  padding: 15px;
+  color: white;
+}
+.my-footer .footer-icon a:hover {
+  transition: all .3s;
+  color: black;
 }
