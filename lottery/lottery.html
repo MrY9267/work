@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		.box {
+			width: 650px;
+			/* border: 1px solid red; */
+			margin: 0 auto;
+			position: relative;
+		}
+
+		.move {
+			position: absolute;
+			left: 89px;
+			top: 41px;
+		}
+
+		.pointer {
+			position: absolute;
+			left: 209px;
+			top: 149px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="box">
+		<img class="bg" src="lottery-turntable-bg.jpg" alt="" width="500" />
+		<img class="move" src="lottery-turntable.png" alt="" width="350" />
+		<img class="pointer" src="lottery-pointer.png" alt="" width="100" />
+	</div>
+</body>
+<script type="text/javascript">
+	var move = document.getElementsByClassName("move")[0]
+	var pointer = document.getElementsByClassName("pointer")[0]
+	var num
+	var txt
+	var deg
+	var canClick = true
+
+	//封装随机数
+	function ran() {
+		var ranNumber = Math.floor(Math.random() * 100)
+		return ranNumber
+	}
+
+	//封装else..if..语句
+	function judge(x) {
+		if (x < 1) {
+			txt = '免单4999元'
+			num = 1
+			//			console.log('一等奖')
+		} else if (x < 4) {
+			txt = '免单50元'
+			num = 2
+			//			console.log('免单50元')
+		} else if (x < 10) {
+			txt = '免单10元'
+			num = 3
+			//			console.log('三等奖')
+		} else if (x < 18) {
+			txt = '免单5元'
+			num = 4
+			//			console.log('四等奖')
+		} else if (x < 30) {
+			txt = '免分期服务费'
+			num = 5
+			//			console.log('五等奖')
+		} else if (x < 50) {
+			txt = '提高白条额度'
+			num = 6
+			//			console.log('六等奖')
+		} else {
+			txt = '很遗憾您没有中奖，感谢您的参与'
+			num = 7
+			//			console.log("很遗憾您没有中奖，感谢您的参与")
+		}
+	}
+
+	//封装转盘旋转函数
+	function turn(num) {
+		move.style.transition = 'all 3s'
+		deg = 30 + (num - 1) * (360 / 7)
+		move.style.transform = 'rotate(' + (deg + 1080) + 'deg)'
+		//			move.style.transform = 'rotate(32 deg)'	
+	}
+
+	//给pointer一个点击事件
+	pointer.onclick = function () {
+		if (canClick == true) {
+			var x = ran()
+			//	 		console.log(x)
+			//	 	console.log(judge(x))
+			judge(x)
+			turn(num)
+			console.log(num, txt)
+			canClick = false
+
+			setTimeout(function () {
+				move.style.transition = 'all 0s'
+				move.style.transform = 'rotate(' + (deg - 1080) + 'deg)'
+				canClick = true
+				alert(txt)
+			}, 3000)
+
+		}
+	}
+</script>
+
+</html>

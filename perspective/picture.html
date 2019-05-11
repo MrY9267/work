@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<body lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .stage{
+        width: 690px;
+        height: 600px;
+        background: url('old.jpg') no-repeat;
+        /* background-size: auto 100%; */
+        position: relative;
+        margin: 0 auto;
+
+    }
+    .stage .mid{
+        height: 100%;
+        width: 30%;
+        background: url('mid.jpg') no-repeat;
+        /* background-size: auto 100%; */
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .stage .box{
+        width:75%;
+        height: 100%;
+        background: url('new.jpg') no-repeat;
+        /* background-size: auto 100%; */
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    
+    .stage input[name=bottoms]{
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        /* z-index: 1 */
+        /* opacity: 0; */
+    }
+ 
+     .stage input[name=tops]{
+        width: 100%;
+        position: absolute;
+        top: 0;
+         /* opacity: 0; */
+     } 
+    
+    </style>
+</head>
+ 
+<body>
+    <div class="stage">
+        <div class="box"></div>
+        <div class="mid"></div>
+        <input type="range" name="bottoms" min="0" max="100" step="1" value="30">
+        <input type="range" name="tops" min="0" max="100" step="1" value="75">
+    </div>
+</body>
+<script>
+    var box = document.querySelector('.stage .box')
+    var mid = document.querySelector('.stage .mid')
+    var bottoms = document.getElementsByName('bottoms')[0]
+    var tops = document.getElementsByName('tops')[0]
+
+
+    tops.oninput = function () {
+        // console.log(this.value)  
+        // console.log('底部' + bottoms.value)  
+        box.style.width = tops.value + '%';
+        if(this.value <= bottoms.value){
+            bottoms.value = this.value
+            mid.style.width = this.value + '%'
+        }
+    }
+
+    bottoms.oninput = function() {
+        // console.log(this.value)
+        mid.style.width = this.value + '%';
+        if(this.value >= tops.value){
+            tops.value = this.value
+            box.style.width = this.value + '%'
+        }
+    }
+</script>
+</html>
