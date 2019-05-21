@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="stage">
+        <div class="face">
+                <h2>STEPS</h2>
+                <p>THIS WEEK</p>
+                <div class="chart">
+                    <span class="bar bar1"><i>s</i></span>
+                    <span class="bar bar2"><i>p</i></span>
+                    <span class="bar bar3"><i>e</i></span>
+                    <span class="bar bar4"><i>e</i></span>
+                    <span class="bar bar5"><i>d</i></span>
+                    <span class="bar bar6"><i>e</i></span>
+                    <span class="bar bar7"><i>d</i></span>
+                </div>
+                <h3>93,000</h3> 
+        </div>
+    </div>
+</body>
+<script>
+    var card = document.querySelector('.face')
+    document.body.onclick = function () {
+       if(card.className.indexOf('active') == -1){
+        document.querySelector('.face').className = 'face active'
+       } else {
+        document.querySelector('.face').className = 'face'
+       }
+        
+      }
+</script>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        .stage ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow: hidden;
+        }
+
+        .stage ul li {
+            width: 100px;
+            height: 100px;
+            float: left;
+        }
+
+        .stage ul li img {
+            max-width: 100%;
+        }
+
+        .bigPic {
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            top: 8px;
+            left: 550px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .bigPic img {
+            width: 1000px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .pic {
+            display: inline-block;
+            width: 500px;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            left: 0;
+            top: 0;
+        }
+
+        .pic img {
+            width: 500px;
+        }
+
+        .remove {
+            width: 250px;
+            height: 250px;
+            background: rgba(0, 0, 0, 0.4);
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: move;
+        }
+        .shop{
+            border: 3px solid rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+
+        <span class="pic">
+            <span class="remove"></span>
+            <img src="aj0.webp" alt="">
+        </span>
+        <div class="stage">
+            <ul>
+                <li> <img src="aj0.webp" alt=""> </li>
+                <li> <img src="aj1.webp" alt=""> </li>
+                <li> <img src="aj2.webp" alt=""> </li>
+                <li> <img src="aj3.webp" alt=""> </li>
+                <li> <img src="aj4.webp" alt=""> </li>
+            </ul>
+        </div>
+    </div>
+    <div class="bigPic"> <img src="aj0.webp" alt=""> </div>
+</body>
+<script>
+    var remove = document.getElementsByClassName('remove')[0]
+    var bigPic = document.querySelector('.bigPic')
+    var mark = document.querySelector('.bigPic img')
+    var bottomPic = document.querySelectorAll('.stage ul li')
+    var topPic = document.querySelector('.pic')
+
+    //图片放大镜
+    topPic.onmousemove = function (a) {
+        // console.log(a)
+        var x = a.pageX - 250 / 2
+        var y = a.pageY - 250 / 2
+
+        if (x > 250) {
+            x = 250
+        }
+        if (x < 0) {
+            x = 0
+        }
+        if (y > 250) {
+            y = 250
+        }
+        if (y < 0) {
+            y = 0
+        }
+
+        remove.style.left = x + 'px'
+        remove.style.top = y + 'px'
+
+        mark.style.left = -x * 2 + 'px'
+        mark.style.top = -y * 2 + 'px'
+
+        bigPic.style.display = 'block'
+    }
+    remove.onmouseout = function () {
+        bigPic.style.display = 'none'
+    }
+
+    //封装
+    function show(params){
+        bottomPic.forEach(function (element) {
+            element.className = '';
+        });
+        params.className = 'shop';
+        topPic.querySelector('img').src = params.querySelector('img').src
+        bigPic.querySelector('img').src = params.querySelector('img').src
+    }
+
+    //鼠标放在小图上出来大图
+    for(var i = 0; i < bottomPic.length; i++){
+        bottomPic[0].className = 'shop';
+    bottomPic[i].onmousemove = function () {
+        show(this)
+    }
+    }
+</script>
+
+</html>

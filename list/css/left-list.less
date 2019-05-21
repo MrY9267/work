@@ -1,0 +1,173 @@
+.stage { 
+    width: 320px;
+    height: 630px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+
+    .content {
+        position: absolute;
+        top: 0;
+        width: 320px;
+        height: 630px;
+        background: #31558A;
+        transition: all 0.5s;
+
+        .title {
+            width: 100%;
+            height: 75px;
+            background: #385E97;
+            position: relative;
+
+            .btn {
+                width: 30px;
+                height: 30px;
+                // background: red;
+                position: absolute;
+                top: 50%;
+                left: 20px;
+                margin-top: -25px;
+                display: flex;
+                justify-content:center;
+                flex-wrap: wrap;
+                align-content: space-around;
+                
+
+                .x{
+                    width: 26px;
+                    height: 3px;
+                    background: white;
+                    transition: all .1s;
+                }
+                .y{
+                    width: 26px;
+                    height: 3px;
+                    background: white;
+                }
+                .z{
+                    width: 26px;
+                    height: 3px;
+                    background: white;
+                    transition: all .1s;                   
+                }
+                .up{
+                    transform: translateY(8px) rotateZ(50deg);
+                }
+                .down{
+                    transform: translateY(-8px)  rotateZ(-50deg);
+                }
+                
+            }
+        }
+
+        .list {
+            margin-top: 35px;
+
+            .item {
+                width: 100%;
+                height: 115px;
+                background: 31558A;
+                position: relative;
+                margin-bottom: 10px;
+
+                .img {
+                    width: 70px;
+                    height: 70px;
+                    background: #214273;
+                    position: absolute;
+                    top: 50%;
+                    left: 20px;
+                    margin-top: -40px;
+                    border-radius: 5px;
+                }
+
+                .text {
+                    width: 180px;
+                    height: 70px;
+                    // background: red;
+                    position: absolute;
+                    top: 50%;
+                    right: 20px;
+                    margin-top: -40px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-content: space-between;
+
+
+                    span {
+                        display: inline-block;
+                        width: 180px;
+                        height: 10px;
+                        background: #214273;
+                        border-radius: 3px;
+                    }
+
+                    :nth-last-child(1) {
+                        width: 70px;
+                    }
+                }
+
+            }
+        }
+    }
+
+    //隐藏的图片
+    .menu {
+        width: 320px;
+        height: 568px;
+        // margin-left: -30px;
+        position: relative;
+        top: -30px;
+        left: -250px;
+        transition: all 0.5s;
+        
+        // shadow{
+        //     width: 320px;
+        //     height: 568px;
+        //     position: absolute;
+        //     top: 30px;
+        //     left: 250px;
+        //     background: black;
+        // }
+
+        img{
+            position: absolute;
+            left: 50px;
+            padding: 0;
+            margin: 0;
+            opacity: 0.3;
+            
+        }
+        ul{
+            position: absolute;
+            list-style: none;
+            margin-top: 110px;
+            padding: 0;
+            display: block;
+            
+            li{
+                width: 320px;
+                margin-top: 60px;
+                text-align: left;
+                padding-left: 100px;
+                font-size: 23px;
+                a{
+                    text-decoration:none;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+.animates{
+    transform: translateX(200px);
+}
+.stage::before{
+    content: '1';
+    width: 500px;
+    height: 700px;
+    background: black;
+    position: absolute;
+    top:-20px;
+    left: -200px;
+}

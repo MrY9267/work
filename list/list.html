@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/left-list.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="stage">
+        <!--看不见-->
+        <div class="menu">
+            <img src="./night.jpg" alt="">
+            
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Share</a></li>
+                <li><a href="#">Activity</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            
+        </div>
+
+
+        <!--看得见-->
+        <div class="content">
+            <!--开始关闭-->
+            <div class="title">
+                <div class="btn">
+                    <div class="x"></div>
+                    <div class="y"></div>
+                    <div class="z"></div>
+                </div>
+            </div>
+
+            <!--内容-->
+            <div class="list">
+
+
+                <div class="item">
+                    <div class="img"></div>
+                    <div class="text">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="img"></div>
+                    <div class="text">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="img"></div>
+                    <div class="text">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="img"></div>
+                    <div class="text">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+<script>
+    var open = document.querySelector('.btn')
+    var X =  document.querySelector('.x')
+    var Y =  document.querySelector('.y')
+    var Z =  document.querySelector('.z')
+    var contents = document.querySelector('.content')
+    var menus = document.querySelector('.menu')
+
+    open.onclick = function (){
+        if(X.className == 'x'){
+            X.className = 'x up';
+        }else {
+            X.className = 'x'
+        }
+        if(Y.className == 'y'){
+            Y.className = '';
+        }else {
+            Y.className = 'y'
+        }
+        if(Z.className == 'z'){
+            Z.className = 'z down';
+        }else {
+            Z.className = 'z'
+        }
+
+        if( X.className == 'x up'){
+            contents.className = 'content animates'
+            menus.className = 'menu animates'        
+        }else {
+            contents.className = 'content'
+            menus.className = 'menu'    
+        }
+    }
+</script>
+</html>

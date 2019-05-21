@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<style>
+    .content img {
+        width: 300px;
+    }
+
+    .loading {
+        background: rgba(0, 0, 0, .3);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        display: none;
+    }
+
+    .loading img {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        top: 50%;
+    }
+
+    .bigPic {
+        background: rgba(0, 0, 0, .6);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: center;
+        display: none;
+    }
+
+    .bigPic img {
+        /* width: 500px; */
+        height: 600px;
+        position: relative;
+        top: 5%;
+    }
+
+    .close {
+        width: 50px;
+        height: 50px;
+        font-size: 70px;
+        position: absolute;
+        top: 0;
+        right: 5%;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="content">
+    </div>
+    <div class="bigPic">
+        <div class="close">x</div>
+    </div>
+    <div class="loading">
+        <img src="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" alt="">
+    </div>
+    <br>
+    <button>加载更多</button>
+</body>
+<script>
+    var options = {
+        count: 5,
+        page: 2
+    }
+    var canClick = true
+    // $('.content img').click(function () {
+    //     // window.open(this.src)
+    //     $('.bigPic').append('<img src="' + this.src + '">').css('display', 'block')
+    // })
+    //on可以给未来的元素（未创建的元素）添加事件
+    $('.content').on('click','img',function () {
+        $('.bigPic').append('<img src="' + this.src + '">').css('display', 'block')
+    })
+    $('.close').click(function () {
+        $('.bigPic').css('display', 'none').children().first().next().remove()
+    })
+    $('button').click(function (e) {
+        if (canClick) {
+            $('.loading').show()
+            $.get("https://api.apiopen.top/getImages", options,
+                function (data, textStatus, jqXHR) {
+                    // console.table(data.result);
+                    data.result.forEach(function (element) {
+                        $('.content').append('<img src="' + element.img + '">')
+                    });
+
+                    canClick = true
+                    $('.loading').hide()
+                    options.page++
+                })
+        }
+        canClick = false
+    });
+
+    $(document).scroll(function (e) {
+        // console.log($(document).scrollTop());
+        // console.log($('button').offset().top)
+        if ($('button').offset().top - 700 < $(document).scrollTop()) {
+            if (canClick) {
+                $('.loading').show()
+                $.get("https://api.apiopen.top/getImages", options,
+                    function (data, textStatus, jqXHR) {
+                        // console.table(data.result);
+                        data.result.forEach(function (element) {
+                            $('.content').append('<img src="' + element.img + '">')
+                        });
+                        // $('.content img').click(function () {
+                        //     // window.open(this.src)
+                        //     $('.bigPic').append('<img src="' + this.src + '">').css('display',
+                        //         'block')
+                        // })
+                        // $('.close').click(function () {
+                        //     $('.bigPic').css('display', 'none').children().first().siblings()
+                        //         .remove()
+                        // })
+                        canClick = true
+                        $('.loading').hide()
+                        options.page++
+                    })
+            }
+            canClick = false
+        }
+    })
+    if (canClick) {
+        $('.loading').show()
+        $.get("https://api.apiopen.top/getImages", options,
+            function (data, textStatus, jqXHR) {
+                // console.table(data.result);
+                data.result.forEach(function (element) {
+                    // console.log(element);
+                    $('.content').append('<img src="' + element.img + '">')
+                });
+                // $('.content img').click(function () {
+                //     // window.open(this.src)
+                //     $('.bigPic').append('<img src="' + this.src + '">').css('display', 'block')
+                // })
+                // $('.close').click(function () {
+                //     $('.bigPic').css('display', 'none').children().first().next().remove()
+                // })
+                canClick = true
+                $('.loading').hide()
+                options.page++
+            })
+    }
+</script>
+
+</html>
