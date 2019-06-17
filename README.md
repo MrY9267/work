@@ -5,4 +5,5 @@
 [侧边栏](https://mry9267.github.io/work/list/list.html)
 [立体统计图](https://mry9267.github.io/work/CSS3-3D/立体统计图.html)
 [瀑布流效果](https://mry9267.github.io/work/picture/瀑布流.html)
-[淘宝商品图片放大镜](https://mry9267.github.io/work/taobao/buys.html)
+[淘宝商品图片放大镜](https://mry9267.github.io/work/taobao/buys.html)  
+[贪吃蛇小游戏](https://mry9267.github.io/work/snake/canvas.html)
