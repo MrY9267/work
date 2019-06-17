@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .canvas{ 
+        width: 500px;
+        margin: 0 auto;
+    }
+    span{
+        display: block;
+        width: 80px;
+        height: 30px;
+        background: lightslategray;
+        text-align: center;
+        line-height: 30px;
+        margin: 0 auto;
+        border-radius: 30px;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+    }
+</style>
+<body>
+    <div class="canvas">
+        <canvas width="500" height="500" style="border:1px solid black;"></canvas>
+        <span class="start">开始游戏</span>
+    </div>   
+</body>
+<script>
+    // @type {HTMLCanvasElement}
+    var canvas = document.querySelector('canvas')
+    var ctx = canvas.getContext('2d')
+    var start = document.querySelector('.start')
+    // ctx.lineWidth=1;
+    // ctx.strokeRect(0,0,500,500);
+    var gameOver = false
+    var eatApple = false
+    
+    function Dot(col, row) {
+        this.x = col
+        this.y = row
+    }
+    //移动小块
+    Dot.prototype.draw = function (color) {
+        ctx.beginPath()
+        ctx.fillStyle = color
+        ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI, false)
+        ctx.fill()
+        ctx.closePath()
+    }
+    //蛇身
+    var Snake = function () {
+        this.snakeBody = [
+            new Dot(35, 5),
+            new Dot(25, 5),
+            new Dot(15, 5),
+            new Dot(5, 5)
+        ]
+        this.direction = 'right'
+        this.nextDirection = 'right'
+    }
+    //“画”蛇
+    Snake.prototype.draw = function () {
+        this.snakeBody.forEach(function (element, index) {
+            if (index === 0) {
+                element.draw('lightblue')
+            } else {
+                element.draw('lightpink')
+            }
+            element.draw()
+        })
+    }
+    Snake.prototype.move = function () {
+        apple.draw()
+        this.direction = this.nextDirection
+        var head = this.snakeBody[0]
+        // console.log(head.x, head.y)
+        switch (this.direction) {
+            case 'left':
+                this.newHead = new Dot(head.x - 10, head.y)
+                break;
+            case 'up':
+                this.newHead = new Dot(head.x, head.y - 10)
+                break;
+            case 'right':
+                this.newHead = new Dot(head.x + 10, head.y)
+                break;
+            case 'down':
+                this.newHead = new Dot(head.x, head.y + 10)
+                break;
+        }
+        this.snakeBody.unshift(this.newHead)
+
+        if (head.x === apple.segment.x && head.y === apple.segment.y) {
+            apple.move()
+            
+        } else {
+            this.snakeBody.pop()
+        }
+    }
+
+    //设置方向
+    Snake.prototype.setDirection = function (newDirection) {
+        if (this.direction === 'right' && newDirection === 'left') {
+            return
+        }
+        if (this.direction === 'left' && newDirection === 'right') {
+            return
+        }
+        if (this.direction === 'down' && newDirection === 'up') {
+            return
+        }
+        if (this.direction === 'up' && newDirection === 'down') {
+            return
+        }
+        this.nextDirection = newDirection
+    }
+
+    Snake.prototype.checkCollision = function () {
+        var rightCollision = this.snakeBody[0].x > canvas.width - 5
+        var downCollision = this.snakeBody[0].y > canvas.height - 5
+        var leftCollision = this.snakeBody[0].x < 0
+        var upCollision = this.snakeBody[0].y < 0
+
+        var selfCollision = false
+        for (let i = 1; i < this.snakeBody.length; i++) {
+            if (this.newHead.x == this.snakeBody[i].x && this.newHead.y == this.snakeBody[i].y) {
+                selfCollision = true
+            }
+        }
+
+        if (rightCollision || downCollision || leftCollision || upCollision || selfCollision) {
+            var gameOver = true
+            clearInterval(snakemove)
+            alert('gameOver')
+        }
+    }
+
+    var randomNum = function (params) {
+        return Math.ceil(Math.random() * params)
+    }
+
+    var Apple = function () {
+        this.segment = new Dot(105, 155)
+    }
+
+    Apple.prototype.draw = function () {
+        this.segment.draw('red')
+    }
+
+    Apple.prototype.move = function () {
+        // debugger
+        var randomX
+        var randomY
+        var appleMove = setInterval(function () {
+            randomX = randomNum(canvas.width)
+            randomY = randomNum(canvas.height)
+
+            if (randomX % 5 == 0 && randomX % 10 != 0 && randomY % 5 == 0 && randomY % 10 != 0) {
+                // console.log(randomX, randomY)
+                clearInterval(appleMove)
+                appleGo = new Dot(randomX, randomY)
+                eatApple = true
+                // console.log(this.appleGo)
+            } else {
+                return
+            }
+        }, 1)
+        // console.log(appleGo)
+        if (eatApple) {
+            this.segment = appleGo   
+        }      
+    }
+
+    var snake = new Snake()
+    snake.draw()
+    var apple = new Apple()
+    apple.draw()
+
+    var direction = {
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down'
+    }
+
+    window.onkeydown = function (e) {
+        if (direction[e.keyCode]) {
+            snake.setDirection(direction[e.keyCode])
+        }
+
+    }
+    var snakemove
+    start.onclick = function () {
+        snakemove = setInterval(function () {
+        ctx.clearRect(0, 0, 500, 500)
+        snake.move()
+        snake.checkCollision()
+        if (gameOver) {
+            return
+        }
+        // apple.draw()
+        snake.draw()
+        }, 100)
+    }
+
+    // var snakemove = setInterval(function () {
+    //     ctx.clearRect(0, 0, 500, 500)
+    //     snake.move()
+    //     snake.checkCollision()
+    //     if (gameOver) {
+    //         return
+    //     }
+    //     // apple.draw()
+    //     snake.draw()
+    // }, 100)
+</script>
+
+</html>
